@@ -23,3 +23,18 @@ def read_museum():
 def read_museum_by_id(museum_id: str):
 	r = requests.get(f'https://opendata.paris.fr/api/records/1.0/search/?dataset=que-faire-a-paris-&q=&facet=date_start&facet=date_end&facet=address_name&facet=address_zipcode&facet=address_city&facet=deaf&facet=price_type&facet=access_type&facet=updated_at&facet=programs&refine.recordid={museum_id}')
 	return r.json()
+
+
+value = {
+        "language": "language",
+        "company": "company",
+        "Itemid": "Itemid",
+        "price": "price"
+    }
+
+@app.get("/bouchon/{id}")
+def read_item(id: str):
+	if id == "michel":
+    	return json.dumps(value)
+	else :
+		return {"no Json"}
