@@ -24,17 +24,20 @@ def read_museum_by_id(museum_id: str):
 	r = requests.get(f'https://opendata.paris.fr/api/records/1.0/search/?dataset=que-faire-a-paris-&q=&facet=date_start&facet=date_end&facet=address_name&facet=address_zipcode&facet=address_city&facet=deaf&facet=price_type&facet=access_type&facet=updated_at&facet=programs&refine.recordid={museum_id}')
 	return r.json()
 
-
 value = {
-        "language": "language",
-        "company": "company",
-        "Itemid": "Itemid",
-        "price": "price"
-    }
+	"DonneBouchon" : "Data",
+	"isYouAreBeautiful" : True
+}
 
 @app.get("/bouchon/{id}")
 def read_item(id: str):
 	if id == "michel":
-    	return json.dumps(value)
+		return value
 	else :
 		return {"no Json"}
+
+
+@app.get("/museum/position/{lon}/{lat}/{dist}")
+def read_museum_by_position(lon: str, lat: str, dist: str):
+	r = requests.get(f'https://opendata.paris.fr/api/records/1.0/search/?dataset=que-faire-a-paris-&q=&facet=date_start&facet=date_end&facet=tags&facet=address_name&facet=address_zipcode&facet=address_city&facet=pmr&facet=blind&facet=deaf&facet=transport&facet=price_type&facet=access_type&facet=updated_at&facet=programs&geofilter.distance={lon},{lat},{dist}')
+	return r.json()
